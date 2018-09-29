@@ -17,16 +17,16 @@ public class WallGeneratorGoController : MonoBehaviour {
 	}
 	
 	void Update () {
-		if(transform.position.z < player.transform.position.z) {
-			transform.position = new Vector3 (0, 28, player.transform.position.z + 70);
-		}
-		
-		if(FirstAudioListener.middleAudioBandBuffer * 0.3f > 0.2f) {
-			somePlusSpeed = 0.2f;
+		if(FirstAudioListener.middleAudioBandBuffer < 0) {
+			readySpeed = defaultSpeed;
 		} else {
-			somePlusSpeed = FirstAudioListener.middleAudioBandBuffer * 0.3f;
+			readySpeed = defaultSpeed + (FirstAudioListener.middleAudioBandBuffer * plusSpeed);
 		}
-		readySpeed = defaultSpeed + (FirstAudioListener.middleAudioBandBuffer * plusSpeed) + FirstAudioListener.middleAudioBandBuffer *  (1.8f + somePlusSpeed);
+		// if(FirstAudioListener.middleAudioBandBuffer * 0.3f > 0.2f) {
+		// 	somePlusSpeed = 0.2f;
+		// } else {
+		// 	somePlusSpeed = FirstAudioListener.middleAudioBandBuffer * 0.3f;
+		// }
 		
 		transform.Translate (direction * readySpeed * Time.deltaTime);	
 	}

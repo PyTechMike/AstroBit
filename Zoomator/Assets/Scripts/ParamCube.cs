@@ -25,13 +25,13 @@ public class ParamCube : MonoBehaviour {
 			// Color _color = new Color(AudioVis.middleAudioBandBuffer, AudioVis.middleAudioBandBuffer  + 0.1f, AudioVis.middleAudioBandBuffer + colorful * 2);
 			// _material.SetColor("_EmissionColor", _color);
 			if(AudioVis.middleAudioBandBuffer > 0.6f) {
-				realCol = Color.Lerp (realCol, new Color(0.870f, 0.090f, 0.090f), 6 * Time.deltaTime);
+				realCol = Color.Lerp (realCol, new Color(0.870f, 0.090f, 0.090f), 7 * Time.deltaTime);
 				_material.SetColor("_EmissionColor", realCol);
 			} else if(AudioVis.middleAudioBandBuffer > 0.3f){
-				realCol = Color.Lerp (realCol, new Color(0.203f, 0.196f, 0.862f), 6 * Time.deltaTime);
+				realCol = Color.Lerp (realCol, new Color(0.203f, 0.196f, 0.862f), 7 * Time.deltaTime);
 				_material.SetColor("_EmissionColor", realCol);
 			} else {
-				realCol = Color.Lerp (realCol, new Color(0.47f,0.78f,0.93f), 6 * Time.deltaTime);
+				realCol = Color.Lerp (realCol, new Color(0.47f,0.78f,0.93f), 7 * Time.deltaTime);
 				_material.SetColor("_EmissionColor", realCol);
 			}
 		}

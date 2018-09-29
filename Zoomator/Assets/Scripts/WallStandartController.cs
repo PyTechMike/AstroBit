@@ -20,6 +20,7 @@ public class WallStandartController : MonoBehaviour {
 
 	private Vector3 destinationPoint;
 	public float smoothing;
+	private float plusSpeed;
 
 	private GameObject player;
 	private GameObject generator;
@@ -36,9 +37,15 @@ public class WallStandartController : MonoBehaviour {
 		wallTime = GameObject.Find("WallTimer").GetComponent<Text> ();
 		
 		if(autoPos) {
-			transform.position = new Vector3 (startPosX, startPosY, startPosZ + player.transform.position.z + 70);	
-			// transform.position = new Vector3 (startPosX, startPosY, startPosZ + generator.transform.position.z);	
+			plusSpeed = 0;
+			transform.position = new Vector3 (startPosX, startPosY, startPosZ + player.transform.position.z + 70 + plusSpeed);
 			
+			// if(FirstAudioListener.middleAudioBandBuffer < 0) {
+			// 	plusSpeed = 0;
+			// } else {
+			// 	plusSpeed = 60 * FirstAudioListener.middleAudioBandBuffer;
+			// }
+			// transform.position = new Vector3 (startPosX, startPosY, startPosZ + generator.transform.position.z);	
 		}
 
 		if(!GeneratorWalls.spawnWithLastPos) {
@@ -80,18 +87,19 @@ public class WallStandartController : MonoBehaviour {
 				string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
 					ts.Hours, ts.Minutes, ts.Seconds,
 					ts.Milliseconds / 10);
-				// wallTime.text = elapsedTime;
+				wallTime.text = elapsedTime;
 
 				Destroy (gameObject);
 				destroied = true;
 
 				if(player.transform.position.x < transform.position.x + 2 && player.transform.position.x > transform.position.x - 3) {
 					GeneratorWalls.count += 1;
-					wallTime.text = GeneratorWalls.count.ToString();
+					// wallTime.text = GeneratorWalls.count.ToString();
 					Vibration.Vibrate(40);
 				}
 			}
 		} 
+		UnityEngine.Debug.Log(FirstAudioListener.middleAudioBandBuffer);
 			
 	}
 
@@ -104,7 +112,7 @@ public class WallStandartController : MonoBehaviour {
 			string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
 				ts.Hours, ts.Minutes, ts.Seconds,
 				ts.Milliseconds / 10);
-			// wallTime.text = elapsedTime;
+			wallTime.text = elapsedTime;
 
 			Destroy (gameObject);
 			destroied = true;
@@ -112,7 +120,7 @@ public class WallStandartController : MonoBehaviour {
 			if(GeneratorWalls.count != 0) {
 				GeneratorWalls.count -= 1;
 			}
-			wallTime.text = GeneratorWalls.count.ToString();
+			// wallTime.text = GeneratorWalls.count.ToString();
 				
 		}
 	}
