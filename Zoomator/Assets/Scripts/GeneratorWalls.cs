@@ -16,6 +16,7 @@ public class GeneratorWalls : MonoBehaviour {
 	public static float lastXPos = 1f;
 	public static float lastYPos = 6f;
 	public static int count;
+	public float sensitivity;
 
 	public static bool spawnWithLastPos = false;
 	public static bool isFirstWall = true;
@@ -48,11 +49,11 @@ public class GeneratorWalls : MonoBehaviour {
 	void Update() {
 		for (int i = 0; i < 16; i++) {
 			if(FirstAudioListener.middleAudioBandBuffer > 0.7f) {
-				plusBandDifference = 0.08f;
+				plusBandDifference = 0.08f + sensitivity;
 			} else if(FirstAudioListener.middleAudioBandBuffer > 0.4f) {
-				plusBandDifference = 0.06f;
+				plusBandDifference = 0.06f + sensitivity;
 			} else if(FirstAudioListener.middleAudioBandBuffer > 0.2f) {
-				plusBandDifference = 0.04f;
+				plusBandDifference = 0.04f + sensitivity;
 			}
 			if(lastAudioBands[i] > nowAudioBands[i] + plusBandDifference) {  
 				canSpawn = true;	
