@@ -8,8 +8,6 @@ public class FirstAudioListener : MonoBehaviour {
 	AudioSource audioSource;
 	float[] _samples = new float[64];
 	float[] _freqBand = new float[16];
-	float[] _bandBuffer = new float[16];
-	float[] _bufferDecrease = new float[16];
 
 	float[] _freqBandHighest = new float[16];
 	public static float[] _audioBandBuffer = new float[16];
@@ -17,6 +15,7 @@ public class FirstAudioListener : MonoBehaviour {
 	public static float middleAudioBandBuffer;
 	public static float FirstAudioBandBuffer;
 	public static float SecondAudioBandBuffer;
+	private float _audioProfile = 0.0001f;
 
 	private bool delay = false;
 
@@ -29,6 +28,9 @@ public class FirstAudioListener : MonoBehaviour {
 	void Start () {
 		audioSource = GetComponent<AudioSource>();	
 		audioSource.Pause();
+
+		AudioProfile(_audioProfile);
+
 		StartCoroutine(PauseBeforeStart());
 	}
 
@@ -36,8 +38,13 @@ public class FirstAudioListener : MonoBehaviour {
 		if (delay) {
 			GetSpectrumAudioSource();
 			MakeFrequencyBands();
-			BandBuffer();
 			CreateAudioBands();
+		}
+	}
+
+	void AudioProfile(float audioProfile) {
+		for(int i = 0; i < 16; i++) {
+			_freqBandHighest[i] = audioProfile; 
 		}
 	}
 	
@@ -46,36 +53,15 @@ public class FirstAudioListener : MonoBehaviour {
 			if(_freqBand[i] > _freqBandHighest[i]) {
 				_freqBandHighest[i] = _freqBand[i];
 			}
-			_audioBandBuffer[i] = (_bandBuffer[i] / _freqBandHighest[i]);
+			_audioBandBuffer[i] = (_freqBand[i] / _freqBandHighest[i]);
 
-			for(int k = 0; k < 8; k++) {
-				FirstAudioBandBuffer += _audioBandBuffer[k];
-			}
-			FirstAudioBandBuffer /= 8;
-			for(int k = 8; k < 16; k++) {
-				SecondAudioBandBuffer += _audioBandBuffer[k];
-			}
-			SecondAudioBandBuffer /= 8;  
-
-			middleAudioBandBuffer = (FirstAudioBandBuffer + SecondAudioBandBuffer) / 2; 
+			middleAudioBandBuffer += _audioBandBuffer[i];  
+			middleAudioBandBuffer = middleAudioBandBuffer / 16; 
 		}
 	}
 
 	void GetSpectrumAudioSource() {
 		audioSource.GetSpectrumData(_samples, 0, FFTWindow.Blackman);
-	}
-	
-	void BandBuffer() {
-		for(int g = 0; g < 16; ++g) {
-			if(_freqBand[g] > _bandBuffer[g]) {
-				_bandBuffer[g] = _freqBand[g];
-				_bufferDecrease[g] = 0.0000001f;
-			}
-			if(_freqBand[g] < _bandBuffer[g]) {
-				_bandBuffer[g] -= _bufferDecrease[g];
-				_bufferDecrease[g] *= 1.3f;
-			}
-		}
 	}
 
 	void MakeFrequencyBands() {

@@ -99,7 +99,7 @@ public class WallStandartController : MonoBehaviour {
 				}
 			}
 		} 
-		UnityEngine.Debug.Log(FirstAudioListener.middleAudioBandBuffer);
+		// UnityEngine.Debug.Log(FirstAudioListener.middleAudioBandBuffer);
 			
 	}
 

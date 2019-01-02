@@ -49,13 +49,13 @@ public class GeneratorWalls : MonoBehaviour {
 	void Update() {
 		for (int i = 0; i < 16; i++) {
 			if(FirstAudioListener.middleAudioBandBuffer > 0.7f) {
-				plusBandDifference = 0.08f + sensitivity;
+				plusBandDifference = 1.3f + sensitivity;
 			} else if(FirstAudioListener.middleAudioBandBuffer > 0.4f) {
-				plusBandDifference = 0.06f + sensitivity;
+				plusBandDifference = 1.3f + sensitivity;
 			} else if(FirstAudioListener.middleAudioBandBuffer > 0.2f) {
-				plusBandDifference = 0.04f + sensitivity;
+				plusBandDifference = 1.3f + sensitivity;
 			}
-			if(lastAudioBands[i] > nowAudioBands[i] + plusBandDifference) {  
+			if(lastAudioBands[i] > nowAudioBands[i] + sensitivity) {  
 				canSpawn = true;	
 			} else {
 				canSpawn = false;
