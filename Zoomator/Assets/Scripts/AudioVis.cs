@@ -16,7 +16,7 @@ public class AudioVis : MonoBehaviour {
 	public static float[] _audioBandBuffer = new float[16];
 	public static float middleAudioBandBuffer;
 	
-	private float _audioProfile = 0.0001f;	
+    private float _audioProfile = 0.0001f;	
 	
 	public float startDelay;
 	private bool delay = false;
