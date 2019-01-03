@@ -36,6 +36,12 @@ public class FirstAudioListener : MonoBehaviour {
 
 	void Update () {
 		if (delay) {
+			if(audioSource.isPlaying && menuButton.isPaused) {
+				audioSource.Pause();
+			} 
+			if(!audioSource.isPlaying && !menuButton.isPaused) {
+				audioSource.UnPause();
+			} 
 			GetSpectrumAudioSource();
 			MakeFrequencyBands();
 			CreateAudioBands();

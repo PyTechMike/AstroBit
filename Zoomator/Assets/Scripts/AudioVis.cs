@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -33,15 +34,25 @@ public class AudioVis : MonoBehaviour {
 
 		AudioProfile(_audioProfile);
 
-		StartCoroutine(PauseBeforeStart()); 
+		StartCoroutine(PauseBeforeStart());
+
+		Invoke("finishedPlaying", audioSource.clip.length); 
 	}
 
 	void Update () {
 		if (delay) {
-			GetSpectrumAudioSource();
-			MakeFrequencyBands();
-			BandBuffer();
-			CreateAudioBands();
+			if(audioSource.isPlaying && menuButton.isPaused) {
+				audioSource.Pause();
+			} 
+			if(!audioSource.isPlaying && !menuButton.isPaused) {
+				audioSource.UnPause();
+			} 
+			if(audioSource.isPlaying && !menuButton.isPaused) {
+				GetSpectrumAudioSource();
+				MakeFrequencyBands();
+				BandBuffer();
+				CreateAudioBands();
+			}
 		}
 	}
 
@@ -94,4 +105,8 @@ public class AudioVis : MonoBehaviour {
 
 		count = 0;
 	} 
+
+	void finishedPlaying() {
+		SceneManager.LoadScene(0);
+	}
 }

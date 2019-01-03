@@ -12,6 +12,7 @@ public class CamController : MonoBehaviour {
 	
 	public float differencePlusZ;
 	public float smoothing;
+	private float finalDifferenceZ;
 	private float lastDifferenceZ;
 
 	private float rotationZ;
@@ -26,9 +27,7 @@ public class CamController : MonoBehaviour {
 		
 		float rotationZ = Mathf.Lerp(transform.rotation.z, player.transform.rotation.z, Time.deltaTime * smoothing);
 		
-		float finalDifferenceZ = Mathf.Lerp(lastDifferenceZ, differenceZ + (differencePlusZ * AudioVis.middleAudioBandBuffer), Time.deltaTime * smoothing);
-
-		
+		finalDifferenceZ = Mathf.Lerp(lastDifferenceZ, differenceZ + (differencePlusZ * AudioVis.middleAudioBandBuffer), Time.deltaTime * smoothing);
 		transform.position = new Vector3(destinationX, destinationY, player.transform.position.z - finalDifferenceZ);
 		
 		transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, rotationZ);
@@ -44,6 +43,8 @@ public class CamController : MonoBehaviour {
 			CameraShaker.Instance.ShakeOnce(AudioVis.middleAudioBandBuffer + 1f, 3f, 0.1f, 1f);
 		}
 
-		lastDifferenceZ = differenceZ + (differencePlusZ * AudioVis.middleAudioBandBuffer);
+		if (!menuButton.isPaused) {	
+			lastDifferenceZ = differenceZ + (differencePlusZ * AudioVis.middleAudioBandBuffer);
+		}
 	}
 }
