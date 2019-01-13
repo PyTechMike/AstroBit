@@ -5,7 +5,10 @@ using EZCameraShake;
 
 public class CamController : MonoBehaviour {
 
-	public GameObject player;
+	public GameObject spaceShip1;
+	public GameObject spaceShip2;
+
+	private GameObject player;
 
 	public float differenceZ;
 	public float differenceY;
@@ -18,6 +21,14 @@ public class CamController : MonoBehaviour {
 	private float rotationZ;
 
 	private Vector3 destinationPoint;
+
+	void Start() {
+		if(ApplicationModel.spaceShip == 1) {
+			player = spaceShip1;
+		}	else if (ApplicationModel.spaceShip == 2) {
+			player = spaceShip2;
+		}
+	}
 
 	void Update () {
 		// destinationPoint = new Vector3 (player.transform.position.x, player.transform.position.y + differenceY, player.transform.position.z - differenceZ);

@@ -24,6 +24,7 @@ public class WallStandartController : MonoBehaviour {
 
 	private GameObject player;
 	private GameObject generator;
+	public GameObject wallEffect;
 
 	private Text wallTime;
 
@@ -87,14 +88,15 @@ public class WallStandartController : MonoBehaviour {
 				string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
 					ts.Hours, ts.Minutes, ts.Seconds,
 					ts.Milliseconds / 10);
-				wallTime.text = elapsedTime;
+				// wallTime.text = elapsedTime;
 
 				Destroy (gameObject);
 				destroied = true;
 
 				if(player.transform.position.x < transform.position.x + 2 && player.transform.position.x > transform.position.x - 3) {
+					Instantiate(wallEffect, new Vector3(transform.position.x, transform.position.y, transform.position.z + 3), transform.rotation); 
 					GeneratorWalls.count += 1;
-					// wallTime.text = GeneratorWalls.count.ToString();
+					wallTime.text = GeneratorWalls.count.ToString();
 					Vibration.Vibrate(40);
 				}
 			}
@@ -112,16 +114,15 @@ public class WallStandartController : MonoBehaviour {
 			string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
 				ts.Hours, ts.Minutes, ts.Seconds,
 				ts.Milliseconds / 10);
-			wallTime.text = elapsedTime;
-
+			// wallTime.text = elapsedTime;
 			Destroy (gameObject);
 			destroied = true;
 
 			if(GeneratorWalls.count != 0) {
 				GeneratorWalls.count -= 1;
 			}
-			// wallTime.text = GeneratorWalls.count.ToString();
-				
+
+			wallTime.text = GeneratorWalls.count.ToString();
 		}
 	}
 }

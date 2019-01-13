@@ -8,6 +8,9 @@ public class CheckWall : MonoBehaviour {
 		if(other.gameObject.tag == "wall") {
 			other.gameObject.GetComponent<WallStandartController> ().bumped ();
 		}
+		if(other.gameObject.tag == "longWall") {
+			other.gameObject.GetComponent<LongWallController> ().bumped ();
+		}
 		if(other.gameObject.tag == "coin") {
 			other.gameObject.GetComponent<CoinController> ().collected ();
 		}

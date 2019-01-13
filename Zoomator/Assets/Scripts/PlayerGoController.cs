@@ -30,4 +30,8 @@ public class PlayerGoController : MonoBehaviour {
 			transform.Translate (direction * readySpeed * Time.deltaTime);		
 		}
 	}
+
+	public void DestroyShip() {
+		Destroy (gameObject);
+	}
 }

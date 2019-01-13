@@ -5,6 +5,8 @@ using UnityEngine;
 public class GeneratorWalls : MonoBehaviour {
 	
 	public GameObject wall;
+	public GameObject longWall;
+
 	public GameObject coin;
 
 	private float[] nowAudioBands = new float[16];
@@ -30,8 +32,11 @@ public class GeneratorWalls : MonoBehaviour {
 			nowAudioBands[i] = FirstAudioListener._audioBandBuffer[i];
 		}
 
-		if(canSpawn) {  
-			Instantiate (wall);	
+		if(canSpawn) { 
+			// if(spawnWithLastPos) {
+			// 	Instantiate(longWall);
+			// }
+			Instantiate(wall);	
 			yield return new WaitForSeconds(0.05f);
 			spawnWithLastPos = true;
 		} else {
